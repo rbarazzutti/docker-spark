@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  master:
+    build: birgerk-apache-spark
+
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+
+  slave:
+    build: birgerk-apache-spark
+    environment:
+      - SPARK_ROLE=slave
+      - SPARK_MASTER=master
+    depends_on:
+      - master
+
